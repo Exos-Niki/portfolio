@@ -32,6 +32,12 @@ p{color:var(--mut);font-size:1.05rem;line-height:1.8;font-weight:400;max-width:6
 .tag::before{content:"> ";opacity:.6}
 .tag::after{content:"";display:inline-block;width:.55ch;height:1.05em;margin-left:3px;vertical-align:-.15em;background:var(--pu);animation:blink 1s steps(1) infinite}
 .chip{font-size:.92rem;font-weight:500;letter-spacing:.01em}
+.l3{display:inline-block;position:relative;transform-style:preserve-3d;white-space:nowrap;
+  text-shadow:0 0 26px #a855f7cc;animation:sway 3.6s ease-in-out infinite}
+.l3 .ly{position:absolute;left:0;top:0;pointer-events:none;text-shadow:none;-webkit-text-stroke:0}
+@keyframes sway{
+  0%,100%{transform:perspective(900px) rotateY(-28deg) rotateX(9deg)}
+  50%{transform:perspective(900px) rotateY(28deg) rotateX(-7deg)}}
 
 /* ---------- layout ---------- */
 nav{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;translate:-50% 0;z-index:9;width:min(660px,calc(100% - 24px));display:flex;justify-content:space-between;align-items:center;padding:5px 5px 5px 20px;border-radius:999px;background:linear-gradient(180deg,#ffffff1c,#ffffff08);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%);box-shadow:0 10px 30px #0000005c,inset 0 1px 0 #ffffff40;transition:width .7s var(--ease),background .5s,box-shadow .5s,opacity .9s var(--ease) .9s,translate .9s var(--ease) .9s}
@@ -286,7 +292,7 @@ html[data-theme="light"] .tb .moon{opacity:0;transform:rotate(90deg) scale(.4);f
 </style>
 </head>
 <body>
-<div id="curtain" aria-hidden="true"><b>NIKISH M</b></div>
+<div id="curtain"><b>NIKISH M</b></div>
 <div id="bar"></div><div class="blob b1"></div><div class="blob b2"></div><div class="cg"></div><div class="cr"></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-20%" y="-60%" width="140%" height="220%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -9"/></filter></defs></svg>
 <nav><b>NIKISH M</b><div id="navlinks"><span class="liq" aria-hidden="true"><i class="ind"></i><i class="ind ind2"></i></span><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a></div>
@@ -495,6 +501,30 @@ const d=await r.json().catch(()=>({}));
 if(!r.ok)throw new Error(d.error||'');st.className='ok';st.textContent='Message sent. Thank you!';f.reset();cnt.textContent='0 / 500'}
 catch(x){st.className='err';st.textContent=x.message||'Could not send. Please try again.'}
 btn.disabled=false});
+})();
+</script>
+<script>
+(function(){
+  var b=document.querySelector('#curtain b');
+  if(!b)return;
+  var t=b.textContent.trim(), N=16;
+  b.textContent='';
+  var w=document.createElement('span');
+  w.className='l3';
+  w.setAttribute('aria-label',t);
+  for(var i=N;i>=1;i--){
+    var s=document.createElement('span');
+    s.className='ly';
+    s.setAttribute('aria-hidden','true');
+    s.textContent=t;
+    s.style.transform='translateZ('+(-i*1.6)+'px)';
+    s.style.color='hsl(268 70% '+(48-i*1.9)+'%)';
+    w.appendChild(s);
+  }
+  var f=document.createElement('span');
+  f.textContent=t;
+  w.appendChild(f);
+  b.appendChild(w);
 })();
 </script>
 </body>
